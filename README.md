@@ -1,7 +1,7 @@
 # UserAPI
 
 UserAPI is a RESTful API built with Django, Django Rest Framework, and Postgres that allows users to create and manage their profiles using token authentication.
-This project is based on Dockerized Django and Postgres Starterkit[https://github.com/MastersMasterM/Django-Postgres-Imp4Docker/tree/main]
+This project is based on Dockerized Django and Postgres Starterkit [https://github.com/MastersMasterM/Django-Postgres-Imp4Docker/tree/main]
 
 ## Features
 
