@@ -20,8 +20,6 @@ RUN python -m venv /py && \
         then /py/bin/pip install -r /temp/requirements.dev.txt ; \
     fi && \
     rm -rf /tmp && \
-    rm -rf /var/cache/apk/* && \
-    apk del .temp-build-deps && \
     adduser \
         --disabled-password \
         --no-create-home \
