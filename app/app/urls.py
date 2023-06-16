@@ -30,4 +30,5 @@ urlpatterns = [
         ),
     path('api/user/', include('user.urls')),
     path('api/tasks/', include('taskmanager.urls')),
+    path('', include('ui.urls')),
 ]
