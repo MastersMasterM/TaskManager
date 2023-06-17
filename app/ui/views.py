@@ -33,12 +33,12 @@ class MyLoginView(LoginView):
             'password': form.cleaned_data['password']
         }
         
-        response = requests.post(url, data=data)
+        response = requests.post('http://localhost:8000'+url, data=data)
         if response.status_code == 200:
 
             response_data = response.json()
             self.request.session['token'] = response_data['token']
-            redirect(reverse('tasklist:home'))
+            return HttpResponse(self.request.session['token'])
         else:
             error_message = response.text
             return HttpResponse(error_message)
