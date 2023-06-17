@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Task List
+{% endblock title %}
+
+{% block content %}
+<div class="user-info">
+<h1>Hello {{user_info.name|title}}</h1>
+<h2>Email: {{user_info.email}}</h2>
+</div>
+<div class="task-info">
+<h3>Your Tasks are as follows</h3>
+<table>
+    <tr>
+        <th>
+            Task Name
+        </th>
+        <th>
+            Due Date
+        </th>
+        <th>
+            Estimated Time
+        </th>
+        <th>
+            Spent Time
+        </th>
+        <th>
+            Is Done
+        </th>
+    </tr>
+{% for t in tasks %}
+<tr>
+    <td>
+        {{t.title|title}}
+    </td>
+    <td>
+        {{t.due_date|date:"M d, Y"}}
+    </td>
+    <td>
+        {{t.estimated_time}}
+    </td>
+    <td>
+        {{t.spent_time}}
+    </td>
+    <td>
+        <span class="{% if t.is_done %}done{% else %}not-done{% endif %}">
+            {% if t.is_done %}Done{% else %}Not Done{% endif %}
+        </span>
+    </td>
+</tr>
+{% endfor %}
+</table>
+</div>
+{% endblock content %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/task.css' %}">
+{% endblock style %}

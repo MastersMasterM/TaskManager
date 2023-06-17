@@ -8,8 +8,9 @@ from django.contrib.auth.views import LoginView
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from .forms import CustomUserCreationForm,CustomLoginForm
-from django.shortcuts import redirect
-
+from django.views import View
+from django.shortcuts import render, redirect
+from datetime import datetime, timezone
 
 class SignUpView(CreateView):
     template_name = 'user/signup.html'
@@ -38,7 +39,8 @@ class MyLoginView(LoginView):
 
             response_data = response.json()
             self.request.session['token'] = response_data['token']
-            return HttpResponse(self.request.session['token'])
+            self.request.session['user_id'] = response_data['user_id']
+            return redirect(reverse('tasklist'))
         else:
             error_message = response.text
             return HttpResponse(error_message)
@@ -54,3 +56,22 @@ class MyLoginView(LoginView):
         return self.render_to_response(self.get_context_data(form=form))
 
 
+class Tasklist(View):
+    def get(self, request):
+        u_token = self.request.session['token']
+
+        if u_token is None:
+            HttpResponse("You are Not Authenticated")
+        header = {
+            'Authorization': f'Token {u_token}'
+        }
+        u_info = requests.get('http://localhost:8000'+reverse('user:me'), headers=header).json()
+        tasks = requests.get('http://localhost:8000'+reverse('taskmanager:taskmanager-list'), headers=header).json()
+        for t in tasks:
+            t['due_date'] = datetime.fromisoformat(t['due_date'].replace("Z", "+00:00")).replace(tzinfo=timezone.utc)
+        context = {
+            'tasks': tasks,
+            'user_info': u_info
+        }
+
+        return render(request, 'taskmanager/task.html', context)
