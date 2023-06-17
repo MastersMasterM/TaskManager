@@ -1,4 +1,9 @@
 {%extends 'base.html'%}
+{% load static %}
+
+{% block title %}
+Login
+{% endblock title %}
 
 {%block content%}
   <div class="center">
@@ -15,9 +20,11 @@
 		
 		<input type="submit" value="Login" class="btn btn-primary full-width">
 		<hr>
-		<p class="text-center">Forgot your password <a href="#">Reset Password</a></p>
 		<p class="text-center">Don't have a account? <a href="{% url 'signup' %}">Join Now</a></p>
 	</form>
 </div>
-
 {%endblock content%}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock style %}

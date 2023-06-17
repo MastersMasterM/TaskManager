@@ -5,16 +5,9 @@
   align-items: center;
   height: 100vh;
 }
-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
 
-/* Style the signup form */
-form {
+/* Style the login form card */
+.card {
   width: 400px;
   padding: 20px;
   border-radius: 10px;
@@ -22,7 +15,6 @@ form {
 }
 
 /* Style the form inputs */
-form input[type="text"],
 form input[type="email"],
 form input[type="password"] {
   width: 100%;
@@ -51,8 +43,8 @@ form small {
   color: red;
 }
 
-/* Style the signup button */
-form button[type="submit"] {
+/* Style the login button */
+form input[type="submit"] {
   display: block;
   width: 100%;
   padding: 10px;
@@ -66,13 +58,23 @@ form button[type="submit"] {
   transition: background-color 0.2s ease-in-out;
 }
 
-form button[type="submit"]:hover {
+form input[type="submit"]:hover {
   background-color: #0069d9;
 }
 
 /* Style the "Join Now" link */
-h1 {
+form p {
   margin-top: 20px;
-  font-size: 32px;
+  font-size: 14px;
   color: #333;
+}
+
+form p a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+form p a:hover {
+  color: #0069d9;
 }
