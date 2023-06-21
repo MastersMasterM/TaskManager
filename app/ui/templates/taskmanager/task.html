@@ -7,8 +7,13 @@ Task List
 {% block content %}
 <div class="user-info">
 <h1>Hello {{user_info.name|title}}</h1>
-<h2>Email: {{user_info.email}}</h2>
+<h2>Your Email: {{user_info.email}}</h2>
 </div>
+<div class="timer">
+    <span class="hours">00</span> :
+    <span class="minutes">00</span> :
+    <span class="seconds">00</span>
+  </div>
 <div class="task-info">
 <h3>Your Tasks are as follows</h3>
 <table>
@@ -27,6 +32,9 @@ Task List
         </th>
         <th>
             Is Done
+        </th>
+        <th>
+            Options
         </th>
     </tr>
 {% for t in tasks %}
@@ -47,6 +55,10 @@ Task List
         <span class="{% if t.is_done %}done{% else %}not-done{% endif %}">
             {% if t.is_done %}Done{% else %}Not Done{% endif %}
         </span>
+    </td>
+    <td>
+        <a href=#>Focus</a>
+        <a href=#>Done</a>
     </td>
 </tr>
 {% endfor %}
