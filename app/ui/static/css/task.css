@@ -75,6 +75,7 @@ a {
 a:hover {
   background-color: #3e8e41;
 }
+
 .timer {
   font-size: 36px;
   font-weight: bold;
@@ -95,4 +96,18 @@ a:hover {
 .timer span.active {
   background-color: #4caf50;
   color: #fff;
+}
+
+.timer input[type="text"] {
+  border: none;
+  background-color: transparent;
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  width: 40px;
+  text-align: center;
+}
+
+.container .buttons {
+  font-size: 36px;
+  text-align: center;
 }

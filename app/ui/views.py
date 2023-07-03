@@ -11,6 +11,7 @@ from .forms import CustomUserCreationForm,CustomLoginForm
 from django.views import View
 from django.shortcuts import render, redirect
 from datetime import datetime, timezone
+from django.views.decorators.http import require_http_methods
 
 class SignUpView(CreateView):
     template_name = 'user/signup.html'
@@ -75,3 +76,8 @@ class Tasklist(View):
         }
 
         return render(request, 'taskmanager/task.html', context)
+
+
+@require_http_methods(["POST"])
+def focus_task_id(request):
+    pass

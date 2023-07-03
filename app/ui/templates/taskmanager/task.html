@@ -9,11 +9,17 @@ Task List
 <h1>Hello {{user_info.name|title}}</h1>
 <h2>Your Email: {{user_info.email}}</h2>
 </div>
-<div class="timer">
-    <span class="hours">00</span> :
-    <span class="minutes">00</span> :
-    <span class="seconds">00</span>
-  </div>
+<div class="container">
+    <div class="timer">
+        <span class="hours"><input type="text" id="hs" value="00"></span> :
+        <span class="minutes"><input type="text" id="mins" value="00"></span> :
+        <span class="seconds"><input type="text" id="secs" value="00"></span>
+    </div>
+    <div class="buttons">
+        <a href="#" id="startLink">Start</a>
+        <a href="#" id="stopLink">Stop</a>
+    </div>
+</div>
 <div class="task-info">
 <h3>Your Tasks are as follows</h3>
 <table>
@@ -57,13 +63,14 @@ Task List
         </span>
     </td>
     <td>
-        <a href=#>Focus</a>
-        <a href=#>Done</a>
+        <a href="api/tasks/taskmanager/{{t.id}}/">Focus</a>
+        <a href='#'>Done</a>
     </td>
 </tr>
 {% endfor %}
 </table>
 </div>
+<script src="{% static 'js/task.js' %}"></script>
 {% endblock content %}
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/task.css' %}">
