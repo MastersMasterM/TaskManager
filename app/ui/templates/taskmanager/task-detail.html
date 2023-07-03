@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{tasks.title}}
+{% endblock title %}
+
+{% block content %}
+<div class="intro">
+    <h1>{{tasks.title|title}}</h1>
+    <h2>{{today}}</h2>
+</div>
+<table>
+    <tr> 
+        <td>Created At</td>
+        <td>{{tasks.created_at|date:"M d, Y"}}</td>
+    </tr>
+    <tr> 
+        <td>Estimated Time</td>
+        <td>{{tasks.estimated_time}}</td>
+    </tr>
+    <tr> 
+        <td>Due Date</td>
+        <td>{{tasks.due_date|date:"M d, Y"}}</td>
+    </tr>
+    <tr> 
+        <td>Remaining Days</td>
+        <td>{{remaining}}</td>
+    </tr>
+</table>
+<div class="task-info">
+    <h2>Describtion:</h2>
+    <p>{{tasks.desc}}</p>
+    {% if tasks.is_done %}
+    <p> Spent Time : {{tasks.spent_time}} </p>
+    {% else %}
+    Spent Time:
+    <input type="spent_time" id="st" value="{{tasks.spent_time}}">
+    <a href="">Update</a>
+    {% endif %}
+    {% if tasks.sub_tasks %}
+<table class="subtask-table">
+  <thead>
+    <tr>
+      <th>Subtask Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for t in tasks.sub_tasks %}
+    <tr>
+      <td>{{t.title|title}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+</table>
+</div>
+<a href="{% url 'tasklist' %}" class="back-link ">Back to the Task List</a>
+{% endblock content %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/task-detail.css' %}">
+{% endblock style %}

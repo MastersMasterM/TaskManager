@@ -10,8 +10,8 @@ from django.urls import reverse_lazy, reverse
 from .forms import CustomUserCreationForm,CustomLoginForm
 from django.views import View
 from django.shortcuts import render, redirect
-from datetime import datetime, timezone
-from django.views.decorators.http import require_http_methods
+from datetime import datetime, timezone, date
+import json
 
 class SignUpView(CreateView):
     template_name = 'user/signup.html'
@@ -78,6 +78,42 @@ class Tasklist(View):
         return render(request, 'taskmanager/task.html', context)
 
 
-@require_http_methods(["POST"])
-def focus_task_id(request):
-    pass
+class detailtask(View):
+    def get(self,request, pk):
+        u_token = self.request.session['token']
+
+        if u_token is None:
+            HttpResponse("You are Not Authenticated")
+        header = {
+            'Authorization': f'Token {u_token}'
+        }
+        tasks = requests.get('http://localhost:8000'+reverse('taskmanager:taskmanager-detail', kwargs={'pk': pk}), headers=header).json()
+        tasks['created_at'] = datetime.strptime(tasks['created_at'],'%Y-%m-%dT%H:%M:%S.%fZ')
+        tasks['due_date'] = datetime.strptime(tasks['due_date'],'%Y-%m-%dT%H:%M:%S.%fZ')
+        rem_days = (tasks['due_date'].date() - date.today()).days
+        if rem_days < 0:
+            rem_days = "The deadline is over"
+        if tasks['is_done'] == True:
+            rem_days = "The task is already done"
+        context = {
+            'tasks': tasks,
+            'today': date.today(),
+            'remaining': rem_days
+        }
+        return render(request, 'taskmanager/task-detail.html', context)
+
+class finishtask(View):
+    def get(self,request, pk):
+        u_token = self.request.session['token']
+
+        if u_token is None:
+            HttpResponse("You are Not Authenticated")
+        header = {
+            'Authorization': f'Token {u_token}',
+            'Content-Type': 'application/json',
+        }
+        data = {'is_done':True}
+        json_data = json.dumps(data)
+        tasks = requests.patch('http://localhost:8000'+reverse('taskmanager:taskmanager-detail', kwargs={'pk': pk}), headers=header, data=json_data).json()
+        print(tasks)
+        return redirect('tasklist')

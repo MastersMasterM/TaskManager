@@ -63,8 +63,8 @@ Task List
         </span>
     </td>
     <td>
-        <a href="api/tasks/taskmanager/{{t.id}}/">Focus</a>
-        <a href='#'>Done</a>
+        <a href="task/{{t.id}}">More Details</a>
+        <a href={% url 'done-task' pk=t.id %}>Done</a>
     </td>
 </tr>
 {% endfor %}

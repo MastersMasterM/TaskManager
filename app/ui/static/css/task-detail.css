@@ -1,0 +1,108 @@
+/* Set default font and background colors */
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #333;
+  background-color: #f8f8f8;
+}
+
+/* Style the page header */
+.intro {
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 20px;
+  text-align: center;
+}
+
+.intro h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.intro h2 {
+  font-size: 1.5rem;
+  color: #777;
+}
+
+/* Style the table */
+table {
+  border-collapse: collapse;
+  margin: 20px 0;
+  width: 100%;
+}
+
+table td, table th {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+table th {
+  background-color: #f8f8f8;
+  font-weight: bold;
+}
+
+/* Style the task description */
+.task-info {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.task-info h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.task-info p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+/* Style the update button */
+.task-info a {
+  background-color: #f39c12;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.task-info a:hover {
+  background-color: #e67e22;
+}
+
+/* Style the subtask table */
+.subtask-table {
+  border-collapse: collapse;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.subtask-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.subtask-table th {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  font-weight: bold;
+  padding: 10px;
+  text-align: left;
+}
+
+/* Style the "Back to Task List" link */
+.back-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: #f39c12;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: #e67e22;
+}
