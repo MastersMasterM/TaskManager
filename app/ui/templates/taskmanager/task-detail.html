@@ -31,13 +31,6 @@
 <div class="task-info">
     <h2>Describtion:</h2>
     <p>{{tasks.desc}}</p>
-    {% if tasks.is_done %}
-    <p> Spent Time : {{tasks.spent_time}} </p>
-    {% else %}
-    Spent Time:
-    <input type="spent_time" id="st" value="{{tasks.spent_time}}">
-    <a href="">Update</a>
-    {% endif %}
     {% if tasks.sub_tasks %}
 <table class="subtask-table">
   <thead>

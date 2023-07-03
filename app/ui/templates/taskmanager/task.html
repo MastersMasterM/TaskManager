@@ -10,6 +10,7 @@ Task List
 <h2>Your Email: {{user_info.email}}</h2>
 </div>
 <div class="container">
+    <h1>Timer</h1>
     <div class="timer">
         <span class="hours"><input type="text" id="hs" value="00"></span> :
         <span class="minutes"><input type="text" id="mins" value="00"></span> :
@@ -34,9 +35,6 @@ Task List
             Estimated Time
         </th>
         <th>
-            Spent Time
-        </th>
-        <th>
             Is Done
         </th>
         <th>
@@ -55,16 +53,13 @@ Task List
         {{t.estimated_time}}
     </td>
     <td>
-        {{t.spent_time}}
-    </td>
-    <td>
         <span class="{% if t.is_done %}done{% else %}not-done{% endif %}">
             {% if t.is_done %}Done{% else %}Not Done{% endif %}
         </span>
     </td>
     <td>
         <a href="task/{{t.id}}">More Details</a>
-        <a href={% url 'done-task' pk=t.id %}>Done</a>
+        {% if not t.is_done %}<a href={% url 'done-task' pk=t.id %}>Done</a>{% endif %}
     </td>
 </tr>
 {% endfor %}
