@@ -142,3 +142,6 @@ class newtask(View):
         n_task = requests.post('http://localhost:8000'+reverse('taskmanager:taskmanager-list'), headers=header, data=json_data).json()
         return redirect('tasklist')
 
+class welcomepage(View):
+    def get(self,request):
+        return render(request,'index.html')

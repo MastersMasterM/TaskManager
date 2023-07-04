@@ -1,0 +1,117 @@
+/* Set the background color and font family */
+body {
+  background-image: url("background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: 'Open Sans', sans-serif;
+  color: #fff;
+}
+
+/* Style the header */
+.header {
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* Style the main content */
+.intro {
+  background-color: #007bff;
+  padding: 50px;
+  margin: 50px auto;
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+.intro h2 {
+  text-align: center;
+}
+/* Style the headings */
+h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #007bff;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+/* Style the paragraph text */
+p {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 30px;
+  color: #fff;
+}
+
+/* Style the buttons */
+a {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  background-color: #fff;
+  border-radius: 6px;
+  color: #007bff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a:hover {
+  background-color: #0062cc;
+  color: #fff;
+}
+
+/* Style the redirect section */
+.redirect {
+  margin-top: 50px;
+  max-width: 800px;
+  margin: 50px auto;
+  background-color: #007bff;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(255, 255, 255, 0.1);
+  padding: 50px;
+  text-align: center;
+}
+
+.redirect h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.redirect h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+/* Style the redirect buttons */
+.redirect a {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  background-color: #fff;
+  border-radius: 6px;
+  color: #007bff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.redirect a:hover {
+  background-color: #0062cc;
+  color: #fff;
+}

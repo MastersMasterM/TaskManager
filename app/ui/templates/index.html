@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Welcome
+{% endblock title %}
+
+{% block content %}
+<div class="header">
+</div>
+<div class="intro">
+    <h2>
+        Welcome to the M4ster Task Manager 
+    </h2>
+    <p>
+        In today's fast-paced and crowded world, it's easy to get overwhelmed by the sheer number of tasks and responsibilities we have. That's where a task manager comes in handy. With our Task Manager application, you can easily create and manage your tasks, ensuring that you stay on top of your to-do list and make the most of your time. Whether you're a busy professional, a student, or just someone who wants to be more organized, our Task Manager app is the perfect tool for you. So why wait? Start using the Task Manager today and take control of your tasks and your time!
+    </p>
+</div>
+
+
+<div class="redirect">
+    <h1>Your Solution is here</h1>
+    <h2>Go to Your Account</h2>
+    <a href="{% url 'login' %}"> Login </a>
+    <h2>You want to get organized from now on!</h2>
+    <a href="{% url 'signup' %}"> Signup </a>
+</div>
+{% endblock content %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock style %}
