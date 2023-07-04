@@ -132,3 +132,7 @@ a:hover {
 .container h1{
   text-align: center;
 }
+
+.new-task {
+  padding: 10px;
+}

@@ -89,7 +89,7 @@ class detailtask(View):
         }
         tasks = requests.get('http://localhost:8000'+reverse('taskmanager:taskmanager-detail', kwargs={'pk': pk}), headers=header).json()
         tasks['created_at'] = datetime.strptime(tasks['created_at'],'%Y-%m-%dT%H:%M:%S.%fZ')
-        tasks['due_date'] = datetime.strptime(tasks['due_date'],'%Y-%m-%dT%H:%M:%S.%fZ')
+        tasks['due_date'] = datetime.strptime(tasks['due_date'],'%Y-%m-%dT%H:%M:%SZ')
         rem_days = (tasks['due_date'].date() - date.today()).days
         if rem_days < 0:
             rem_days = "The deadline is over"
@@ -115,5 +115,30 @@ class finishtask(View):
         data = {'is_done':True}
         json_data = json.dumps(data)
         tasks = requests.patch('http://localhost:8000'+reverse('taskmanager:taskmanager-detail', kwargs={'pk': pk}), headers=header, data=json_data).json()
-        print(tasks)
         return redirect('tasklist')
+
+class newtask(View):
+    def get(self,request):
+        return render(request,'taskmanager/new-task.html')
+    
+    def post(self,request):
+        u_token = self.request.session['token']
+
+        if u_token is None:
+            HttpResponse("You are Not Authenticated")
+        header = {
+            'Authorization': f'Token {u_token}',
+            'Content-Type': 'application/json',
+        }
+        print(request.POST.get('due_date'), type(request.POST.get('due_date')))
+        context = {
+            'title' : request.POST.get('title'),
+            'desc' : request.POST.get('description'),
+            'estimated_time' : request.POST.get('estimated_time'),
+            'due_date' : datetime.strptime(request.POST.get('due_date'),'%Y-%m-%d').strftime('%Y-%m-%dT%H:%M:%S'),
+            'user' : self.request.session['user_id']
+        }
+        json_data = json.dumps(context)
+        n_task = requests.post('http://localhost:8000'+reverse('taskmanager:taskmanager-list'), headers=header, data=json_data).json()
+        return redirect('tasklist')
+

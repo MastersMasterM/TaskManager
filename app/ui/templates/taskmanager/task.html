@@ -22,7 +22,7 @@ Task List
     </div>
 </div>
 <div class="task-info">
-<h3>Your Tasks are as follows</h3>
+<h3>Your Tasks are As Follows</h3>
 <table>
     <tr>
         <th>
@@ -64,6 +64,10 @@ Task List
 </tr>
 {% endfor %}
 </table>
+</div>
+
+<div class="new-task">
+    <a href="{% url 'new-task' %}">New Task</a>
 </div>
 <script src="{% static 'js/task.js' %}"></script>
 {% endblock content %}

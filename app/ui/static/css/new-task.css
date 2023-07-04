@@ -1,0 +1,117 @@
+/* Common styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #f7f7f7;
+  }
+  
+  .container {
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    margin-bottom: 10px;
+  }
+  
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  input[type="text"],
+  input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    background-color: transparent;
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+  }
+  
+  input[type="text"]:focus,
+  input[type="date"]:focus {
+    border-bottom: 2px solid #007bff;
+    outline: none;
+  }
+  
+  button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0069d9;
+  }
+  
+  .back-link {
+    display: inline-block;
+    margin-left: 20px;
+    color: #333;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  .back-link:hover {
+    color: #007bff;
+  }
+  
+  /* New Task page styles */
+  #title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  #desc {
+    height: 200px;
+    resize: none;
+  }
+  
+  a.send-link {
+    display: block;
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+  }

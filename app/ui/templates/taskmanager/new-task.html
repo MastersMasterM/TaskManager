@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+New Task
+{% endblock title %}
+
+{% block content %}
+<form id="new-task-form" action="{% url 'new-task' %}" method="POST" >
+    {% csrf_token %}
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="title" required>
+
+  <label for="desc">Description:</label>
+  <input type="text" id="desc" name="description">
+
+  <label for="et">Estimated Time:</label>
+  <input type="text" id="et" name="estimated_time">
+
+  <label for="due-date">Due Date:</label>
+  <input type="date" id="due-date" name="due_date">
+
+  <button type="submit">Create Task</button>
+</form>
+
+<div class="back-to-list">
+  <a href="{% url 'tasklist' %}" class="back-link">Back to Task List</a>
+</div>
+{% endblock content %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/new-task.css' %}">
+{% endblock style %}
