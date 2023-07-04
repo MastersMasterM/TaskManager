@@ -1,5 +1,13 @@
-from django.urls import path, include
-from .views import *
+from django.urls import path
+from .views import (
+    SignUpView,
+    MyLoginView,
+    Tasklist,
+    detailtask,
+    finishtask,
+    newtask,
+    welcomepage,
+)
 
 urlpatterns = [
     path('signup', SignUpView.as_view(), name='signup'),
@@ -8,5 +16,5 @@ urlpatterns = [
     path('task/<int:pk>', detailtask.as_view(), name='detail-task'),
     path('done/<int:pk>', finishtask.as_view(), name='done-task'),
     path('newtask', newtask.as_view(), name='new-task'),
-    path('',welcomepage.as_view(), name="welcome")
+    path('', welcomepage.as_view(), name="welcome")
 ]

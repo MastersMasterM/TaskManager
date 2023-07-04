@@ -7,11 +7,12 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.views import LoginView
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
-from .forms import CustomUserCreationForm,CustomLoginForm
+from .forms import CustomUserCreationForm, CustomLoginForm
 from django.views import View
 from django.shortcuts import render, redirect
 from datetime import datetime, timezone, date
 import json
+
 
 class SignUpView(CreateView):
     template_name = 'user/signup.html'
@@ -24,8 +25,8 @@ class MyLoginView(LoginView):
     form_class = CustomLoginForm
 
     def get_success_url(self):
-        return reverse_lazy('tasks') 
-    
+        return reverse_lazy('tasks')
+
     def form_valid(self, form):
         url = reverse('user:token')
 
@@ -34,7 +35,7 @@ class MyLoginView(LoginView):
             'email': form.cleaned_data['email'],
             'password': form.cleaned_data['password']
         }
-        
+
         response = requests.post('http://localhost:8000'+url, data=data)
         if response.status_code == 200:
 
@@ -46,14 +47,11 @@ class MyLoginView(LoginView):
             error_message = response.text
             return HttpResponse(error_message)
 
-        # Save the token
-        
-
         # Return the response
         return "response"
-    
+
     def form_invalid(self, form):
-        messages.error(self.request,'Invalid username or password')
+        messages.error(self.request, 'Invalid username or password')
         return self.render_to_response(self.get_context_data(form=form))
 
 
@@ -66,10 +64,19 @@ class Tasklist(View):
         header = {
             'Authorization': f'Token {u_token}'
         }
-        u_info = requests.get('http://localhost:8000'+reverse('user:me'), headers=header).json()
-        tasks = requests.get('http://localhost:8000'+reverse('taskmanager:taskmanager-list'), headers=header).json()
+        u_info = requests.get('http://localhost:8000' +
+                              reverse('user:me'),
+                              headers=header).json()
+        tasks = requests.get('http://localhost:8000' +
+                             reverse('taskmanager:taskmanager-list'),
+                             headers=header).json()
         for t in tasks:
-            t['due_date'] = datetime.fromisoformat(t['due_date'].replace("Z", "+00:00")).replace(tzinfo=timezone.utc)
+            if t['due_date'] is not None:
+                t['due_date'] = datetime.fromisoformat(
+                    t['due_date'].replace("Z", "+00:00")
+                    ).replace(tzinfo=timezone.utc)
+            else:
+                t['due_date'] = "Hasn't Set"
         context = {
             'tasks': tasks,
             'user_info': u_info
@@ -79,7 +86,7 @@ class Tasklist(View):
 
 
 class detailtask(View):
-    def get(self,request, pk):
+    def get(self, request, pk):
         u_token = self.request.session['token']
 
         if u_token is None:
@@ -87,23 +94,37 @@ class detailtask(View):
         header = {
             'Authorization': f'Token {u_token}'
         }
-        tasks = requests.get('http://localhost:8000'+reverse('taskmanager:taskmanager-detail', kwargs={'pk': pk}), headers=header).json()
-        tasks['created_at'] = datetime.strptime(tasks['created_at'],'%Y-%m-%dT%H:%M:%S.%fZ')
-        tasks['due_date'] = datetime.strptime(tasks['due_date'],'%Y-%m-%dT%H:%M:%SZ')
-        rem_days = (tasks['due_date'].date() - date.today()).days
-        if rem_days < 0:
-            rem_days = "The deadline is over"
-        if tasks['is_done'] == True:
-            rem_days = "The task is already done"
+        tasks = requests.get('http://localhost:8000' +
+                             reverse('taskmanager:taskmanager-detail',
+                                     kwargs={'pk': pk}),
+                             headers=header).json()
+        tasks['created_at'] = datetime.strptime(
+            tasks['created_at'],
+            '%Y-%m-%dT%H:%M:%S.%fZ')
         context = {
             'tasks': tasks,
             'today': date.today(),
-            'remaining': rem_days
         }
+
+        if tasks['due_date'] is not None:
+            tasks['due_date'] = datetime.strptime(
+                tasks['due_date'],
+                '%Y-%m-%dT%H:%M:%SZ')
+            rem_days = (tasks['due_date'].date() - date.today()).days
+            if rem_days < 0:
+                rem_days = "The deadline is over"
+        else:
+            rem_days = "Due Date Hasn't Set"
+
+        if tasks['is_done']:
+            rem_days = "The task is already done"
+
+        context['remaining'] = rem_days
         return render(request, 'taskmanager/task-detail.html', context)
 
+
 class finishtask(View):
-    def get(self,request, pk):
+    def get(self, request, pk):
         u_token = self.request.session['token']
 
         if u_token is None:
@@ -112,16 +133,21 @@ class finishtask(View):
             'Authorization': f'Token {u_token}',
             'Content-Type': 'application/json',
         }
-        data = {'is_done':True}
+        data = {'is_done': True}
         json_data = json.dumps(data)
-        tasks = requests.patch('http://localhost:8000'+reverse('taskmanager:taskmanager-detail', kwargs={'pk': pk}), headers=header, data=json_data).json()
+        requests.patch('http://localhost:8000' +
+                       reverse('taskmanager:taskmanager-detail',
+                               kwargs={'pk': pk}),
+                       headers=header,
+                       data=json_data).json()
         return redirect('tasklist')
 
+
 class newtask(View):
-    def get(self,request):
-        return render(request,'taskmanager/new-task.html')
-    
-    def post(self,request):
+    def get(self, request):
+        return render(request, 'taskmanager/new-task.html')
+
+    def post(self, request):
         u_token = self.request.session['token']
 
         if u_token is None:
@@ -132,16 +158,26 @@ class newtask(View):
         }
         print(request.POST.get('due_date'), type(request.POST.get('due_date')))
         context = {
-            'title' : request.POST.get('title'),
-            'desc' : request.POST.get('description'),
-            'estimated_time' : request.POST.get('estimated_time'),
-            'due_date' : datetime.strptime(request.POST.get('due_date'),'%Y-%m-%d').strftime('%Y-%m-%dT%H:%M:%S'),
-            'user' : self.request.session['user_id']
+            'title': request.POST.get('title'),
+            'desc': request.POST.get('description'),
+            'estimated_time': request.POST.get('estimated_time'),
+            'user': self.request.session['user_id']
         }
+
+        if request.POST.get('due_date') != '':
+            context['due_date'] = datetime.strptime(
+                request.POST.get('due_date'),
+                '%Y-%m-%d'
+                ).strftime('%Y-%m-%dT%H:%M:%S')
+
         json_data = json.dumps(context)
-        n_task = requests.post('http://localhost:8000'+reverse('taskmanager:taskmanager-list'), headers=header, data=json_data).json()
+        requests.post('http://localhost:8000' +
+                      reverse('taskmanager:taskmanager-list'),
+                      headers=header,
+                      data=json_data).json()
         return redirect('tasklist')
 
+
 class welcomepage(View):
-    def get(self,request):
-        return render(request,'index.html')
+    def get(self, request):
+        return render(request, 'index.html')

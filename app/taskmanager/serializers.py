@@ -30,6 +30,6 @@ class TaskDetailSerializer(TaskSerializer):
     class Meta(TaskSerializer.Meta):
         exclude = ()
 
-    def get_sub_tasks(self, obj)->str:
+    def get_sub_tasks(self, obj) -> str:
         sub_tasks = SubTask.objects.filter(task=obj)
         return SubTaskSerializer(sub_tasks, many=True).data
